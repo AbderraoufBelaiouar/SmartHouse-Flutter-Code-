@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.6
   image_picker: ^1.0.7
   path: ^1.9.0
+  percent_indicator: ^4.2.3
+  http: ^1.2.1
 
 dev_dependencies:
   flutter_test:
@@ -63,8 +65,16 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/images.jpeg
+    - images/download (4).png
     - images/logoimage.png
+    - images/banner.png
+    - images/clock.png
+    - images/energy.png
+    - images/entertainment.png
+    - images/fan-1.png
+    - images/fan-2.png
+    - images/temperature.png
+    - images/water.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

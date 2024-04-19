@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+
 class Sign_in extends StatefulWidget {
-  
   const Sign_in({super.key});
 
   @override
@@ -10,29 +10,30 @@ class Sign_in extends StatefulWidget {
 }
 
 class _Sign_inState extends State<Sign_in> {
+  // ignore: non_constant_identifier_names
+  String? Username;
+  // ignore: non_constant_identifier_names
+  String? e_mail;
+  String? password;
   late File image;
   late ImageProvider provider;
-  final imagepicker=ImagePicker();
-  uploadImage() async{
-    var pickedImage= await imagepicker.pickImage(source: ImageSource.gallery);
-    if(pickedImage != null){
+  final imagepicker = ImagePicker();
+  uploadImage() async {
+    var pickedImage = await imagepicker.pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
       setState(() {
-         image=File(pickedImage.path);
+        image = File(pickedImage.path);
       });
-
-    }else{
-      
-    }
-   
+    } else {}
   }
-  bool _isSecuredPassword=true;
-  bool _isSecuredconfirmedPassword=true;
+
+  bool _isSecuredPassword = true;
+  bool _isSecuredconfirmedPassword = true;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       home: Scaffold(
-        resizeToAvoidBottomInset: false, 
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         body: Column(
           children: [
@@ -42,22 +43,21 @@ class _Sign_inState extends State<Sign_in> {
             const Text(
               "Sign Up",
               style: TextStyle(
-                fontFamily: 'Pacifico',
                 fontSize: 20,
               ),
             ),
-             const Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-              CircleAvatar(
-              // image == null ? Text("Not found") Image.file(image),
-              backgroundColor: Colors.amber,
-              radius: 45, 
+                CircleAvatar(
+                  // image == null ? Text("Not found") Image.file(image),
+                  backgroundColor: Colors.amber,
+                  radius: 45,
 // ignore: unnecessary_null_comparison
-// image == null ? const Text("Not found") : provider=FileImage(image) 
+// image == null ? const Text("Not found") : provider=FileImage(image)
 //               backgroundImage: provider,
-              // child: ElevatedButton(onPressed: uploadImage, child:Text("upload")),
-              ),
+                  // child: ElevatedButton(onPressed: uploadImage, child:Text("upload")),
+                ),
               ],
             ),
             Container(
@@ -65,12 +65,11 @@ class _Sign_inState extends State<Sign_in> {
               child: const Text(
                 "Username",
                 style: TextStyle(
-                  fontFamily: 'Pacifico',
                   fontSize: 20,
                 ),
               ),
             ),
-               SizedBox(
+            SizedBox(
               height: 50,
               width: 300,
               child: TextField(
@@ -85,7 +84,6 @@ class _Sign_inState extends State<Sign_in> {
             const Text(
               "Email-Adress",
               style: TextStyle(
-                fontFamily: 'Pacifico',
                 fontSize: 20,
               ),
             ),
@@ -104,7 +102,6 @@ class _Sign_inState extends State<Sign_in> {
             const Text(
               "Password",
               style: TextStyle(
-                fontFamily: 'Pacifico',
                 fontSize: 20,
               ),
             ),
@@ -112,7 +109,6 @@ class _Sign_inState extends State<Sign_in> {
               height: 50,
               width: 300,
               child: TextField(
-              
                 obscureText: _isSecuredPassword,
                 decoration: InputDecoration(
                     // hintText: "Enter your username",
@@ -126,7 +122,6 @@ class _Sign_inState extends State<Sign_in> {
             const Text(
               "Confirm Password",
               style: TextStyle(
-                fontFamily: 'Pacifico',
                 fontSize: 20,
               ),
             ),
@@ -144,13 +139,19 @@ class _Sign_inState extends State<Sign_in> {
               ),
               // child: TextField(),
             ),
-            SizedBox(height: 40,),
+            const SizedBox(
+              height: 40,
+            ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Username = "";
+                e_mail = "";
+                password = "";
+              },
               child: const Text(
                 "Sign in ",
                 style: TextStyle(
-                    fontFamily: 'Pacifico',
+
                     // backgroundColor: Color.fromARGB(255, 101, 108, 119),
                     fontSize: 25),
               ),
@@ -160,25 +161,36 @@ class _Sign_inState extends State<Sign_in> {
       ),
     );
   }
-Widget togglePassword(){
-  return IconButton(onPressed: (){
-    setState(() {
-          _isSecuredPassword= !_isSecuredPassword;
-    });
 
-  }, 
-  icon: _isSecuredPassword? Icon(Icons.visibility): Icon(Icons.visibility_off ),color: Colors.grey,) ;
-}
-Widget toggleConfirmedPassword(){
-  return IconButton(onPressed: (){
-    setState(() {
-          _isSecuredconfirmedPassword= ! _isSecuredconfirmedPassword;
-    });
+  Widget togglePassword() {
+    return IconButton(
+      onPressed: () {
+        setState(() {
+          _isSecuredPassword = !_isSecuredPassword;
+        });
+      },
+      icon: _isSecuredPassword
+          ? Icon(Icons.visibility)
+          : Icon(Icons.visibility_off),
+      color: Colors.grey,
+    );
+  }
 
-  }, 
-  icon: _isSecuredconfirmedPassword? Icon(Icons.visibility): Icon(Icons.visibility_off ),color: Colors.grey,) ;
-}
-void pickImage(){
-  // var image=ImagePicker.
-}
+  Widget toggleConfirmedPassword() {
+    return IconButton(
+      onPressed: () {
+        setState(() {
+          _isSecuredconfirmedPassword = !_isSecuredconfirmedPassword;
+        });
+      },
+      icon: _isSecuredconfirmedPassword
+          ? Icon(Icons.visibility)
+          : Icon(Icons.visibility_off),
+      color: Colors.grey,
+    );
+  }
+
+  void pickImage() {
+    // var image=ImagePicker.
+  }
 }

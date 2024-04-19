@@ -1,267 +1,179 @@
 import 'package:flutter/material.dart';
-import 'package:smart1/pages/Sign_in.dart';
-// import 'package:smart1/pages/Sign_in.dart';
+import 'package:smart1/UI/temperature.dart';
+import 'package:smart1/pages/Login_Page.dart';
+
 void main() {
-  runApp(Sign_in());
+  runApp(Login_Page());
 }
 
-// Import necessary libraries
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
 
-// class LoginPage extends StatefulWidget {
-//   @override
-//   _LoginPageState createState() => _LoginPageState();
-// }
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
 
-// class _LoginPageState extends State<LoginPage> {
-//   // Text field controllers for username and password
-//   final TextEditingController _usernameController = TextEditingController();
-//   final TextEditingController _passwordController = TextEditingController();
-
-//   bool _obscureText = true; // Variable to control password visibility
-//     @override
-//   Widget build(BuildContext context) {
-//     return const  MaterialApp(
-//       home: Scaffold(
-//       body: Column(
-//       children: [
-//       // paddingTop : 55,
-//       // paddingBottom: 55,
-//       // horizontalAlignment :start[
-//       //   {
-//         Stack(
-//         alignment: Alignment.centerLeft,
-//         marginLeft :14,
-//         height : 190,
-//         ),
-//       ]
-      
-
-//       ),  
-//       ),
-//     );
-//   }
-/*
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-    home : Scaffold(
-      backgroundColor: Colors.white, // Set background color to white
-      body: Center(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(24.0), // Add padding to all sides
+      title: 'Flutter Smart Home App',
+      theme: ThemeData(
+        primarySwatch: Colors.indigo,
+      ),
+      home: const HomePage(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.indigo.shade50,
+      body: SafeArea(
+        child: Container(
+          margin: const EdgeInsets.only(top: 18, left: 24, right: 24),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              // Smart Home logo
-              // Image.asset(
-              //   'assets/images/smart_home_logo.png', // Replace with your logo path
-              //   height: 100.0, // Set logo height
-              // ),
-              SizedBox(height: 24.0), // Add spacing after logo
-
-              // Text field for username
-              TextField(
-                controller: _usernameController,
-                decoration: InputDecoration(
-                  labelText: 'Username',
-                  hintText: 'Enter your username',
-                  prefixIcon: Icon(Icons.person),
-                  border: OutlineInputBorder(
-                    , // Set border radius
-                  ),
-                ),
-              ),
-              SizedBox(height: 16.0), // Add spacing between text fields
-
-              // Text field for password with toggle for visibility
-              TextField(
-                controller: _passwordController,
-                obscureText: _obscureText,
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  hintText: 'Enter your password',
-                  suffixIcon: IconButton(
-                    icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
-                    onPressed: () {
-                      setState(() {
-                        _obscureText = !_obscureText;
-                      });
-                    },
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-              ),
-              SizedBox(height: 12.0), // Add spacing after password field
-
-              // Forgot password button
-              TextButton(
-                onPressed: () {}, // Handle forgot password functionality
-                child: Text(
-                  'Forgot Password?',
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ),
-              SizedBox(height: 24.0), // Add spacing before login button
-
-              // Login button
-              ElevatedButton(
-                child: Text('Login'),
-                onPressed: () {
-                  // Handle login button press
-                  // You can add logic to validate username and password
-                  // and perform authentication here
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue, // Set button color
-                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0), // Set button padding
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0), // Set button corner radius
-                  ),
-                ),
-              ),
-              SizedBox(height: 16.0), // Add spacing after login button
-
-              // Don't have an account text
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text('Don\'t have an account yet?'),
-                  SizedBox(width: 8.0), // Add spacing between text and button
-                  TextButton(
-                    onPressed: () {}, // Handle sign up button press
-                    child: Text(
-                      'Sign Up',
-                      style: TextStyle(color: Colors.blue),
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'HI JOHN',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.indigo,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
+                  RotatedBox(
+                    quarterTurns: 135,
+                    child: Icon(
+                      Icons.bar_chart_rounded,
+                      color: Colors.indigo,
+                      size: 28,
+                    ),
+                  )
                 ],
+              ),
+              Expanded(
+                child: ListView(
+                  physics: const BouncingScrollPhysics(),
+                  children: [
+                    const SizedBox(height: 32),
+                    Center(
+                      child: Image.asset(
+                        'images/banner.png',
+                        scale: 1.2,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    const Center(
+                      child: Text(
+                        'Smart Home',
+                        style: TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 48),
+                    const Text(
+                      'SERVICES',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _cardMenu(
+                          icon: 'images/energy.png',
+                          title: 'ENERGY',
+                        ),
+                        _cardMenu(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const TemperaturePage(),
+                              ),
+                            );
+                          },
+                          icon: 'images/temperature.png',
+                          title: 'TEMPERATURE',
+                          color: Colors.indigoAccent,
+                          fontColor: Colors.white,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 28),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _cardMenu(
+                          icon: 'images/water.png',
+                          title: 'WATER',
+                        ),
+                        _cardMenu(
+                          icon: 'images/entertainment.png',
+                          title: 'ENTERTAINMENT',
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 28),
+                  ],
+                ),
               ),
             ],
           ),
         ),
       ),
-    ),
     );
   }
-}*/
-class LoginPage extends StatefulWidget {
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
 
-class _LoginPageState extends State<LoginPage> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-
-  // Assuming validation functions for username and password
-  // bool _validateUsername(String username) => ...;
-  // bool _validatePassword(String password) => ...;
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-   home : Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Logo and Image section
-                 const  Stack(
-                    alignment: Alignment.centerLeft,
-                    children: [
-                       Text(
-                        "SmartHouse",
-                        style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-                      ),
-                      // Positioned(
-                      //   right: 0.0,
-                      //   // child: Image.asset(
-                      //   //   "assets/images/app_logo.png",
-                      //   //   height: 190.0,
-                      //   // ),
-                      // ),
-                    ],
-                  ),
-                  const SizedBox(height: 20.0),
-
-                  // Username field
-                  const Text(
-                    "Username",
-                    style: TextStyle(fontSize: 16.0),
-                  ),
-                  // CustomTextFormField(
-                  //   controller: _usernameController,
-                  //   decoration: etxtGradientBlueGrayToGray,
-                  //   // validator: (value) => _validateUsername(value!) ? null : "Invalid username",
-                  // ),
-                  SizedBox(height: 10.0),
-
-                  // Password field
-                  Row(
-                    children: [
-                      Text(
-                        "Password",
-                        style: TextStyle(fontSize: 16.0),
-                      ),
-                      Spacer(),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          "Forgot Password?",
-                          style: TextStyle(color: Colors.blue),
-                        ),
-                      ),
-                    ],
-                  ),
-                  // CustomTextFormField(
-                  //   controller: _passwordController,
-                  //   // decoration: etxtGradientBlueGrayToGray,
-                  //   // validator: (value) => _validatePassword(value!) ? null : "Invalid password",
-                  //   obscureText: true,
-                  // ),
-                  SizedBox(height: 20.0),
-
-                  // Login Button
-                  // CustomButton(
-                  //   text: "Login",
-                  //   // decoration:btnGradientBlueGrayToGray,
-                  //   onPressed: () {
-                  //     // if (_formKey.currentState!.validate()) {
-                  //     //   // Handle login logic with username and password
-                  //     //   print("Username: ${_usernameController.text}");
-                  //     //   print("Password: ${_passwordController.text}");
-                  //     // }
-                  //   },
-                  // ),
-                  const SizedBox(height: 20.0),
-
-                  // Confirmation and Sign In Text (assuming Sign In is a navigation action)
-                  Row(
-                    children: [
-                      const Text("Don't have an account?"),
-                      const Spacer(),
-                      TextButton(
-                        onPressed: (){},
-                        child: const Text("Sign In"),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
+  Widget _cardMenu({
+    required String title,
+    required String icon,
+    VoidCallback? onTap,
+    Color color = Colors.white,
+    Color fontColor = Colors.grey,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          vertical: 36,
+        ),
+        width: 156,
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(24),
+        ),
+        child: Column(
+          children: [
+            Image.asset(icon),
+            const SizedBox(height: 10),
+            Text(
+              title,
+              style: TextStyle(fontWeight: FontWeight.bold, color: fontColor),
+            )
+          ],
         ),
       ),
-    )
     );
   }
 }
