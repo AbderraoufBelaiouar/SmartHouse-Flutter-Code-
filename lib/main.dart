@@ -1,11 +1,16 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:smart1/pages/HomePage.dart';
+import 'package:smart1/pages/Validationcode.dart';
 import 'package:smart1/pages/temperature.dart';
 import 'package:smart1/pages/Login_Page.dart';
 import 'package:smart1/pages/Sign_up.dart';
+import 'package:smart1/pages/Scens.dart';
 
 void main() {
-  runApp(const MaterialApp(
+  runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: Login_Page(),
+    home: HomePage(),
   ));
 }
