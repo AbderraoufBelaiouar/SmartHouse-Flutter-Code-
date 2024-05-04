@@ -6,11 +6,11 @@ import 'package:smart1/pages/Validationcode.dart';
 import 'package:smart1/pages/temperature.dart';
 import 'package:smart1/pages/Login_Page.dart';
 import 'package:smart1/pages/Sign_up.dart';
-import 'package:smart1/pages/Scens.dart';
+import 'package:smart1/pages/AddScene.dart';
 
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: HomePage(),
+    home: TemperaturePage(),
   ));
 }

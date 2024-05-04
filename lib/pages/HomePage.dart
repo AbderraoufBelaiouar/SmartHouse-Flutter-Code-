@@ -1,7 +1,8 @@
+// ignore_for_file: unnecessary_string_interpolations, use_super_parameters, library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:smart1/consts.dart';
-import 'package:smart1/pages/Scene.dart';
-import 'package:smart1/pages/Scens.dart';
+import 'package:smart1/pages/AddScene.dart';
 import 'package:smart1/pages/temperature.dart';
 import 'package:weather/weather.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -16,6 +17,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final WeatherFactory _wf = WeatherFactory(OPENWEATHER_API_KEY);
   Weather? _weather;
+  Color myColor1 = Colors.white;
+  Color myColor2 = Colors.white;
+  Color myColorImage1 = Colors.deepPurple;
+  Color myColorImage2 = Colors.deepPurple;
+  Color myfont1 = Colors.deepPurple;
+  Color myfont2 = Colors.deepPurple;
+  var imageUrl = 'images/door.png';
   @override
   void initState() {
     super.initState();
@@ -40,7 +48,7 @@ class _HomePageState extends State<HomePage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ScheduleScenePage(),
+                  builder: (context) => const ScheduleScenePage(),
                 ),
               );
             },
@@ -69,14 +77,6 @@ class _HomePageState extends State<HomePage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  // RotatedBox(
-                  //   quarterTurns: 135,
-                  //   child: Icon(
-                  //     Icons.bar_chart_rounded,
-                  //     color: Colors.indigo,
-                  //     size: 28,
-                  //   ),
-                  // )
                 ],
               ),
               Expanded(
@@ -84,31 +84,97 @@ class _HomePageState extends State<HomePage> {
                   physics: const BouncingScrollPhysics(),
                   children: [
                     const SizedBox(height: 32),
-                    Container(),
-                    // Center(
-                    //   child: Image.asset(
-                    //     'images/HomePageLogo.jpg',
-                    //     scale: 1.2,
-                    //   ),
-                    // ),
-                    const SizedBox(height: 16),
-                    const Center(
-                      child: Text(
-                        'Smart Home',
-                        style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    Container(
+                      width: 100,
+                      height: 200,
+                      decoration: BoxDecoration(
+                        color: Colors.deepPurple,
+                        borderRadius: BorderRadius.circular(30),
+                        boxShadow: const [
+                          BoxShadow(
+                              color: Color.fromARGB(255, 229, 220, 217),
+                              offset: Offset(0, 25),
+                              blurRadius: 10,
+                              spreadRadius: -12),
+                        ],
                       ),
-                    ),
-                    message(),
-                    const SizedBox(height: 48),
-                    const Text(
-                      'DEVICES',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: [
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                "${_weather!.areaName},${_weather!.country}",
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 80,
+                              ),
+                              Text(
+                                "${_weather!.date!.day}/${_weather!.date!.month}/${_weather!.date!.year} ",
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Image.asset(
+                                "images/suncloud.png",
+                                height: 160,
+                                width: 150,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "${_weather!.tempFeelsLike!.celsius!.toInt()}°C",
+                                    style: const TextStyle(
+                                      fontSize: 60,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ],
                       ),
+                      // child: Stack(
+                      //   clipBehavior: Clip.none,
+                      //   children: [
+                      //     Positioned(
+                      //       child: Text(""),
+                      //       top: -40,
+                      //       left: 20,
+                      //     ),
+                      //     Positioned(
+                      //       bottom: 30,
+                      //       child: Text(
+                      //         "",
+                      //         style: TextStyle(
+                      //           fontSize: 20,
+                      //         ),
+                      //       ),
+                      //       left: 20,
+                      //     )
+                      //   ],
+                      // ),
                     ),
                     const SizedBox(height: 16),
                     Row(
@@ -119,6 +185,7 @@ class _HomePageState extends State<HomePage> {
                         //   title: 'ENERGY',
                         // ),
                         _cardMenu(
+                          color: Colors.white,
                           onTap: () {
                             Navigator.push(
                               context,
@@ -127,12 +194,30 @@ class _HomePageState extends State<HomePage> {
                               ),
                             );
                           },
-                          icon: 'images/temperature.png',
+                          icon: 'images/tmp.png',
                           title: 'TEMPERATURE',
+                          colorOfimage: Colors.deepPurple,
+                          fontColor: Colors.deepPurple,
                         ),
                         _cardMenu(
-                          icon: 'images/light.png',
+                          fontColor: myfont1,
+                          colorOfimage: myColorImage1,
+                          icon: 'images/light-bulb.png',
                           title: 'LIGHT',
+                          color: myColor1,
+                          onTap: () {
+                            setState(() {
+                              if (myColor1 == Colors.white) {
+                                myColor1 = Colors.deepPurple;
+                                myColorImage1 = Colors.white;
+                                myfont1 = Colors.white;
+                              } else {
+                                myColor1 = Colors.white;
+                                myColorImage1 = Colors.deepPurple;
+                                myfont1 = Colors.deepPurple;
+                              }
+                            });
+                          },
                         ),
                       ],
                     ),
@@ -141,8 +226,32 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         _cardMenu(
-                          icon: 'images/download (4).png',
-                          title: 'DOOR',
+                          fontColor: myfont2,
+                          icon: 'images/energy.png',
+                          title: 'ENERGY',
+                          color: myColor2,
+                          colorOfimage: myColorImage2,
+                          onTap: () {
+                            setState(() {
+                              if (myColor2 == Colors.white) {
+                                myColor2 = Colors.deepPurple;
+                                myColorImage2 = Colors.white;
+                                myfont2 = Colors.white;
+                              } else {
+                                myColor2 = Colors.white;
+                                myColorImage2 = Colors.deepPurple;
+                                myfont2 = Colors.deepPurple;
+                              }
+                            });
+                          },
+                        ),
+                        _cardMenu(
+                          color: Colors.white,
+                          onTap: () {},
+                          icon: 'images/camera.png',
+                          title: 'Camera',
+                          colorOfimage: Colors.deepPurple,
+                          fontColor: Colors.deepPurple,
                         ),
                       ],
                     ),
@@ -167,8 +276,9 @@ Widget _cardMenu({
   required String title,
   String? icon,
   VoidCallback? onTap,
-  Color color = Colors.white,
-  Color fontColor = Colors.grey,
+  Color? color,
+  Color? colorOfimage,
+  Color? fontColor,
 }) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
@@ -189,6 +299,7 @@ Widget _cardMenu({
               icon!,
               height: 100,
               width: 100,
+              color: colorOfimage,
             ),
             const SizedBox(height: 10),
             Text(

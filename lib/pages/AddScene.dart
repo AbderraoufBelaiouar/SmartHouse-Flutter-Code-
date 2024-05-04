@@ -1,8 +1,10 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:smart1/Components/ScensCreation.dart';
 import 'package:smart1/Components/forms.dart';
+import 'package:smart1/pages/Scene.dart';
 
 class ScheduleScenePage extends StatefulWidget {
   const ScheduleScenePage({super.key});
@@ -12,11 +14,14 @@ class ScheduleScenePage extends StatefulWidget {
 }
 
 class _ScheduleScenePageState extends State<ScheduleScenePage> {
-  TimeOfDay _startTime = TimeOfDay.now();
-  TimeOfDay _endTime = TimeOfDay.now();
+  Scene myscene = Scene(
+      startTime: TimeOfDay.now(),
+      endTime: TimeOfDay.now(),
+      date: DateTime.now(),
+      obj: "lighting");
   bool iswitched = false;
-  DateTime _dateTime = DateTime.now();
   late bool on;
+  final TextEditingController _SceneNameController = TextEditingController();
   String? _selectedValue = "Lighting";
   void _showDatePicker() {
     showDatePicker(
@@ -26,7 +31,7 @@ class _ScheduleScenePageState extends State<ScheduleScenePage> {
       lastDate: DateTime(2025),
     ).then((value) {
       setState(() {
-        _dateTime = value!;
+        myscene.date = value!;
       });
     });
   }
@@ -35,7 +40,7 @@ class _ScheduleScenePageState extends State<ScheduleScenePage> {
     showTimePicker(context: context, initialTime: TimeOfDay.now())
         .then((value) {
       setState(() {
-        _startTime = value!;
+        myscene.startTime = value!;
       });
     });
   }
@@ -44,7 +49,7 @@ class _ScheduleScenePageState extends State<ScheduleScenePage> {
     showTimePicker(context: context, initialTime: TimeOfDay.now())
         .then((value) {
       setState(() {
-        _endTime = value!;
+        myscene.endTime = value!;
       });
     });
   }
@@ -52,20 +57,110 @@ class _ScheduleScenePageState extends State<ScheduleScenePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      bottomNavigationBar: GNav(
+        tabs: [
+          GButton(
+            icon: Icons.home,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          GButton(
+            icon: Icons.add,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ScheduleScenePage(),
+                ),
+              );
+            },
+          ),
+          const GButton(
+            icon: Icons.account_circle,
+          ),
+        ],
+      ),
+      appBar: AppBar(
+        title: const Padding(
+          padding: EdgeInsets.only(left: 50.0),
+          child: Row(
+            children: [
+              Text(
+                "Create a scene",
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.deepPurple,
+                    fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+      ),
       body: Column(
         children: [
-          const SizedBox(
-            height: 80,
-          ),
-          const Text(
-            "Create a scene",
-            style: TextStyle(
-                fontSize: 20,
-                color: Colors.deepPurple,
-                fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(
-            height: 20,
+          mytext(data: "Scene Name"),
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: Container(
+          //     height: 50,
+          //     width: 350,
+          //     decoration: BoxDecoration(
+          //       color: const Color.fromARGB(153, 239, 232, 232),
+          //       borderRadius:
+          //           BorderRadius.circular(30.0), // Add rounded corners here
+          //     ),
+          //     child: TextField(
+          //       controller: _SceneNameController,
+          //       decoration: InputDecoration(
+          //         hintText: "     Enter name of scene",
+          //         border: UnderlineInputBorder(
+          //           borderRadius: BorderRadius.circular(30.0),
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GestureDetector(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(153, 239, 232, 232),
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+                child: Row(
+                  // Change ListTile to Row for better layout
+                  children: [
+                    const SizedBox(width: 15.0),
+                    const Icon(
+                      Icons.near_me_disabled,
+                      color: Colors.deepPurple,
+                    ),
+                    const SizedBox(
+                        width: 10.0), // Add spacing between icon and text field
+                    Expanded(
+                      // Use Expanded to fill remaining space
+                      child: TextField(
+                        controller: TextEditingController(
+                            text: "my scene"), // Set initial text
+                        decoration: const InputDecoration(
+                          border: InputBorder
+                              .none, // Remove default border (optional)
+                        ),
+                        style: const TextStyle(
+                          fontSize: 20,
+                          color: Colors.deepPurple,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
           mytext(data: "Date"),
           Padding(
@@ -80,7 +175,7 @@ class _ScheduleScenePageState extends State<ScheduleScenePage> {
                 child: ListTile(
                   title: Center(
                     child: Text(
-                      "${_dateTime.year}-${_dateTime.month}-${_dateTime.day}",
+                      "${myscene.date.year}-${myscene.date.month}-${myscene.date.day}",
                       style: const TextStyle(
                         fontSize: 20,
                         color: Colors.deepPurple,
@@ -103,18 +198,18 @@ class _ScheduleScenePageState extends State<ScheduleScenePage> {
           ChoiceDetector(
             F: _showTimePicker1,
             icon: Icons.timer_outlined,
-            time: _startTime,
+            time: myscene.startTime,
           ),
           // 3- end time
           mytext(data: "End Time"),
           ChoiceDetector(
             F: _showTimePicker2,
             icon: Icons.timer_outlined,
-            time: _endTime,
+            time: myscene.endTime,
           ),
           mytext(data: "Device"),
           const SizedBox(
-            height: 20,
+            height: 10,
           ),
           // Declare a variable to store the selected value
 
@@ -141,9 +236,7 @@ class _ScheduleScenePageState extends State<ScheduleScenePage> {
               ],
             ),
           ),
-          const SizedBox(
-            height: 20,
-          ),
+
           Switch(
               value: iswitched,
               onChanged: (value) {
@@ -152,15 +245,13 @@ class _ScheduleScenePageState extends State<ScheduleScenePage> {
                   on = iswitched;
                 });
               }),
-          const SizedBox(
-            height: 50,
-          ),
+
           SizedBox(
             height: 50,
             width: 150,
             child: ElevatedButton(
                 onPressed: () {
-                  // _dateTime,_startTime,_endTime,on,
+                  // myscene.date,myscene.startTime,_endTime,on,
                 },
                 child: const Text(
                   "Save",

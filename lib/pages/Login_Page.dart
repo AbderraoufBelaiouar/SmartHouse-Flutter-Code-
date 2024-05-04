@@ -14,10 +14,11 @@ class Login_Page extends StatefulWidget {
 }
 
 class _Login_PageState extends State<Login_Page> {
+  late bool _AccountCheck;
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   Future<void> _loginUser(String? email, String? password) async {
-    final Uri loginUrl = Uri.parse('http://192.168.1.5:3000/users/login');
+    final Uri loginUrl = Uri.parse('http://192.168.133.144:3000/users/login');
     try {
       final response = await http.post(
         loginUrl,
@@ -25,11 +26,17 @@ class _Login_PageState extends State<Login_Page> {
         body: jsonEncode({'email': email, 'password': password}),
       );
       if (response.statusCode == 200) {
-        // Handle successful login (e.g., navigate to a home screen)
+        print("object");
+        // y successful login (e.g., navigate to a home screen)
         jsonDecode(response.body);
+        setState(() {
+          _AccountCheck = true;
+        });
         // Process login data (e.g., JWT token) if applicable
       } else {
-        setState(() {});
+        setState(() {
+          _AccountCheck = false;
+        });
       }
     } catch (e) {
       print('Error during login: $e');
@@ -144,12 +151,14 @@ class _Login_PageState extends State<Login_Page> {
             padding: const EdgeInsets.only(top: 8.0, bottom: 20),
             child: ElevatedButton(
               onPressed: () {
-                // _loginUser(_usernameController.text, _passwordController.text);
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const HomePage(),
-                  ),
-                );
+                _loginUser(_usernameController.text, _passwordController.text);
+                if (_AccountCheck) {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const HomePage(),
+                    ),
+                  );
+                }
               },
               child: const Text(
                 "Login",
